@@ -54,6 +54,23 @@ while run:
       if evento.key == pygame.K_d or evento.key == pygame.K_a: steve.mover(0)
       elif evento.key == pygame.K_w:
         steve.saltar()
+    elif evento.type == pygame.VIDEORESIZE:
+      alto = 500 if pantalla.get_height() < 500 else pantalla.get_height()
+      ancho = 800 if pantalla.get_width() < 800 else pantalla.get_width()
+      for i in range(len(limites)):
+        if limites[i] == suelo:
+          suelo = GameSprite("assets/bloques_bedrock.png", -1, alto - 49, pantalla.get_width(), 70)
+          limites[i] = suelo
+        if limites[i] == limite_cielo:
+          limite_cielo = GameSprite("assets/bloques_bedrock.png", -1, -130, pantalla.get_width(), 70)
+          limites[i] = limite_cielo
+        if limites[i] == limite_izquierdo:
+          limite_izquierdo = GameSprite("assets/bloques_bedrock.png", -50, -60, pantalla.get_height(), 50, True)
+          limites[i] = limite_izquierdo
+        if limites[i] == limite_derecho:
+          limite_derecho = GameSprite("assets/bloques_bedrock.png", ancho, -60, pantalla.get_height(), 50, True)
+          limites[i] = limite_derecho
+        fondo = GameSprite("assets/fondo.png", 0, 0, ancho, alto)  
     if evento.type == pygame.MOUSEBUTTONDOWN:
       if evento.button == 1:
         x, y = pygame.mouse.get_pos()
